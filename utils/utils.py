@@ -49,8 +49,7 @@ def write_video(out_path, images, fps=30, library='imageio'):
     assert out_path[-3:] == 'mp4'
     if library == 'imageio':
         import imageio
-        imgio_kargs = {'fps': fps}
-        writer = imageio.get_writer(out_path, **imgio_kargs)
+        writer = imageio.get_writer(out_path, fps=fps)
         for image in images:
             writer.append_data(image)
         writer.close()

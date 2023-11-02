@@ -17,7 +17,7 @@ pose_sampler:
   traverse_ratios: [0.2, 0.4, 0.6]
   n_anchors_per_ratio: [8, 8, 8]
 
-rgbd_inpaint: true
+rgbd_inpaint: false
 pers_inpainter_type: stable_diffusion
 
 scene_class_name: NeRFScene

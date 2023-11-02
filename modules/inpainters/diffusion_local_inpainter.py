@@ -81,7 +81,7 @@ class DiffusionLocalInpainter(Inpainter):
         super().__init__()
         self.sampler = initialize_model("./ldm/configs/stable-diffusion/v2-inpainting-inference.yaml",
                                         "./pre_checkpoints/512-inpainting-ema.ckpt")
-        self.sampler.model = self.sampler.model.to(torch.device('cpu'))
+        self.sampler.model = self.sampler.model.to(torch.device('cuda'))
         self.ddim_steps = 20
         self.unconditional_guidance_scale = 1.
 
@@ -151,5 +151,5 @@ class DiffusionLocalInpainter(Inpainter):
                                  min=0.0, max=1.0)
             result = result * (mask > 0.5).float() + img * (mask <= 0.5).float()
 
-        self.sampler.model = self.sampler.model.to(torch.device('cpu'))
+        self.sampler.model = self.sampler.model.to(torch.device('cuda'))
         return result.to(torch.float32)

@@ -26,7 +26,7 @@ def constant(value, shape=None, dtype=None, device=None, memory_format=None):
     if dtype is None:
         dtype = torch.get_default_dtype()
     if device is None:
-        device = torch.device('cpu')
+        device = torch.device('cuda')
     if memory_format is None:
         memory_format = torch.contiguous_format
 

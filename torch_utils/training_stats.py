@@ -242,7 +242,7 @@ def _sync(names):
 
     # Collect deltas within current rank.
     deltas = []
-    device = _sync_device if _sync_device is not None else torch.device('cpu')
+    device = _sync_device if _sync_device is not None else torch.device('cuda')
     for name in names:
         delta = torch.zeros([_num_moments], dtype=_counter_dtype, device=device)
         for counter in _counters[name].values():

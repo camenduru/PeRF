@@ -31,7 +31,7 @@ def build_mask(target, val=0.0, tol=1e-3, mask_extra_radius=DEFAULT_MASK_EXTRA_R
     return (~mask).expand_as(target)
 
 
-def make_mask_from_data(tensors, tasks, mask_extra_radius=DEFAULT_MASK_EXTRA_RADIUS, device='cpu'):
+def make_mask_from_data(tensors, tasks, mask_extra_radius=DEFAULT_MASK_EXTRA_RADIUS, device='cuda'):
     ''' Makes mask from a list of tensors (and their associated tasks)
         Args:
             tensors: Iterable of torch.tensors

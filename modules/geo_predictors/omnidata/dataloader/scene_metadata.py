@@ -295,8 +295,8 @@ class BuildingMultiviewMetadata():
                 self.bp_to_all_visible_bpv[BP(bp[0].item(), bp[1].item())].append(BPV(bpv.building, bpv.point, bpv.view))
 
     # These methods are how the multiview information is computed. Requires a DatasetInMem as ds
-    def compute_from_frags(self, ds, device='cpu', store_on_device=False):
-        return_device = device if store_on_device else 'cpu'
+    def compute_from_frags(self, ds, device='cuda', store_on_device=False):
+        return_device = device if store_on_device else 'cuda'
         self.B_to_idx = self.get_buildings_to_idx(ds)
         points_to_center_frag = self.get_center_frag(ds, buildings_to_idx=self.B_to_idx)
         unique_frags  = self.compute_unique_fragments(ds, device=device, store_on_device=store_on_device)
@@ -341,7 +341,7 @@ class BuildingMultiviewMetadata():
         return points_to_center_frag
 
     @classmethod
-    def compute_unique_fragments(cls, ds, device='cpu', store_on_device=False):
+    def compute_unique_fragments(cls, ds, device='cuda', store_on_device=False):
         unique = {}
         # unique = {k: v['positive']['fragments'].to(device, non_blocking=True).unique() for k, v in tqdm(sds.dataset.items(), desc='Generating fragment signatures')}
         for k, v in tqdm(ds.items(), desc='Generating fragment signatures', total=len(ds)):
@@ -350,7 +350,7 @@ class BuildingMultiviewMetadata():
         return unique
 
     @classmethod
-    def compute_points_in_view(cls, unique_frags, points_to_center_frag, compute_device, return_device='cpu'):
+    def compute_points_in_view(cls, unique_frags, points_to_center_frag, compute_device, return_device='cuda'):
         center_frag_pv      = torch.tensor(list(points_to_center_frag.keys()), dtype=torch.int, device=compute_device)
         center_frags   = torch.tensor(list(points_to_center_frag.values()), dtype=torch.long, device=compute_device)
         result = {}

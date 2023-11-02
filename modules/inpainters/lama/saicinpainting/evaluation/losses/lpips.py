@@ -222,7 +222,7 @@ class BaseModel(torch.nn.Module):
         save_filename = '%s_net_%s.pth' % (epoch_label, network_label)
         save_path = os.path.join(self.save_dir, save_filename)
         print('Loading network from %s' % save_path)
-        network.load_state_dict(torch.load(save_path, map_location='cpu'))
+        network.load_state_dict(torch.load(save_path, map_location='cuda'))
 
     def update_learning_rate():
         pass
@@ -284,7 +284,7 @@ class DistModel(BaseModel):
         if (self.model == 'net-lin'):  # pretrained net + linear layer
             self.net = PNetLin(pnet_rand=pnet_rand, pnet_tune=pnet_tune, pnet_type=net,
                                use_dropout=True, spatial=spatial, version=version, lpips=True)
-            kw = dict(map_location='cpu')
+            kw = dict(map_location='cuda')
             if (model_path is None):
                 import inspect
                 model_path = os.path.abspath(

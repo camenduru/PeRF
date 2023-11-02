@@ -562,7 +562,7 @@ class OmnidataDataset(data.Dataset):
         
         return whitelisted
 
-    def _get_cam_to_world_R_T_K(self, point_info: Dict[str, Any], building: str, point: int, view: int, device='cpu') -> List[torch.Tensor]:
+    def _get_cam_to_world_R_T_K(self, point_info: Dict[str, Any], building: str, point: int, view: int, device='cuda') -> List[torch.Tensor]:
         EULER_X_OFFSET_RADS = math.radians(90.0)
         location = point_info['camera_location']
         rotation = point_info['camera_rotation_final']

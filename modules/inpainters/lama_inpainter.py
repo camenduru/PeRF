@@ -25,7 +25,7 @@ class LamaInpainter(Inpainter):
         #                                predict_config.model.checkpoint)
 
         checkpoint_path = './pre_checkpoints/big-lama.ckpt'
-        self.model = load_checkpoint(train_config, checkpoint_path, strict=False, map_location='cpu')
+        self.model = load_checkpoint(train_config, checkpoint_path, strict=False, map_location='cuda')
         self.model.freeze()
 
     @torch.no_grad()
@@ -42,5 +42,5 @@ class LamaInpainter(Inpainter):
             orig_height, orig_width = unpad_to_size
             cur_res = cur_res[:, :orig_height, :orig_width]
 
-        self.model = self.model.to('cpu')
+        self.model = self.model.to('cuda')
         return cur_res

@@ -216,7 +216,7 @@ class HypersimDataset(OmnidataDataset):
                 # if task == 'semantic': _new_transform.append(semseg_remap_inplace)
                 self.transform[task] = transforms.Compose(_new_transform)
                 
-    def _get_cam_to_world_R_T_K(self, point_info: Dict[str, Any], building: str, point: int, view: int, device='cpu') -> List[torch.Tensor]:
+    def _get_cam_to_world_R_T_K(self, point_info: Dict[str, Any], building: str, point: int, view: int, device='cuda') -> List[torch.Tensor]:
         scene, camera = building.split('-')
         T, R        = get_camera_info(scene, camera)
         metadata    = get_metadata(scene)

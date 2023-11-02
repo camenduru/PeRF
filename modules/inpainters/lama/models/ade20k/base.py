@@ -177,7 +177,7 @@ class SegmentationModule(nn.Module):
                                     drop_last_conv=drop_last_conv,
                                     weights_path=self.weights_path)
 
-        self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+        self.device = torch.device('cuda' if torch.cuda.is_available() else 'cuda')
         self.encoder = ModelBuilder.get_encoder(**model_builder_kwargs) if net_enc is None else net_enc
         self.decoder = ModelBuilder.get_decoder(**model_builder_kwargs) if net_dec is None else net_dec
         self.use_default_normalization = use_default_normalization

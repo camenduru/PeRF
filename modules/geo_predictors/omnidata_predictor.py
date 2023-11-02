@@ -37,8 +37,8 @@ class OmnidataPredictor(GeoPredictor):
         self.img_size = 384
         ckpt_path = './pre_checkpoints/omnidata_dpt_depth_v2.ckpt'
         self.model = DPTDepthModel(backbone='vitb_rn50_384', num_channels=1)
-        self.model.to(torch.device('cpu'))
-        checkpoint = torch.load(ckpt_path, map_location=torch.device('cpu'))
+        self.model.to(torch.device('cuda'))
+        checkpoint = torch.load(ckpt_path, map_location=torch.device('cuda'))
         if 'state_dict' in checkpoint:
             state_dict = {}
             for k, v in checkpoint['state_dict'].items():
@@ -57,7 +57,7 @@ class OmnidataPredictor(GeoPredictor):
         self.model.to(torch.device('cuda'))
         img_tensor = self.trans_totensor(img)
         output = self.model(img_tensor).clip(0., 1.)
-        self.model.to(torch.device('cpu'))
+        self.model.to(torch.device('cuda'))
         # output = F.interpolate(output[:, None], size=(512, 512), mode='bicubic')
         output = output.clip(0., 1.)
         # output = 1. - output
@@ -68,7 +68,7 @@ class OmnidataPredictor(GeoPredictor):
         self.model.to(torch.device('cuda'))
         img_tensor = self.trans_totensor(img)
         output = self.model(img_tensor).clip(0., 1.)
-        self.model.to(torch.device('cpu'))
+        self.model.to(torch.device('cuda'))
         # output = F.interpolate(output[:, None], size=(512, 512), mode='bicubic')
         output = output.clip(0., 1.)
         return output[:, None]

@@ -10,7 +10,7 @@ is_continue: false
 dataset_class_name: WildDataset
 dataset:
   image_resize: [2048, 1024]
-  image_path: ./example_data/cozy_room/image.png
+  image_path: ./example_data/kitchen/image.png
 
 pose_sampler_name: CirclePoseSampler
 pose_sampler:
